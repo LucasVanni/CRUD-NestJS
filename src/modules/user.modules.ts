@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import EmailExistsMiddleware from 'src/middlewares/EmailExists';
+import findByEmail from 'src/middlewares/findByEmail';
+import FindByID from 'src/middlewares/findByID';
 import { User } from '../entities/user.entity';
 
 @Module({
@@ -9,8 +10,14 @@ import { User } from '../entities/user.entity';
 })
 export class UsersModules implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(EmailExistsMiddleware).forRoutes({
-      path: 'users', method: RequestMethod.POST
+    consumer.apply(FindByID, findByEmail).forRoutes(
+    {
+      path: 'users',
+      method: RequestMethod.POST
+    },
+    {
+      path: 'users',
+      method: RequestMethod.PUT
     })
   }
 }

@@ -35,8 +35,10 @@ export class UsersService {
     }
   }
 
-  async update({name, email, password}: CreateUserDTO): Promise<string> {
-    await this.usersRepository.update('users', {name, email, password});
+  async update( id: string, {name, email, password}: CreateUserDTO): Promise<string> {
+    await this.usersRepository.update(id, {name, email, password});
+
+    
 
     return 'User updated';
   }

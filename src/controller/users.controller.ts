@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Param, Put } from '@nestjs/common';
 import{ } from '@nestjs/platform-express'
 import { UsersService } from '../service/users.service';
-import { CreateUserDTO, GetUserDTO } from '../dtos/UserDTO';
+import { CreateUserDTO } from '../dtos/UserDTO';
 import { User } from '../entities/user.entity'
 
 @Controller('users')
@@ -25,11 +25,11 @@ export class UsersController {
     return this.usersService.create({name, email, password});
   }
 
-  @Put()
-  Update( @Body() body: CreateUserDTO): Promise<string> {
+  @Put(':id')
+  Update( @Body() body: CreateUserDTO, @Param('id') id: string): Promise<string> {
     const user = body;
 
-    return this.usersService.update(user);
+    return this.usersService.update(id, user);
   }
 
   @Delete(':id')
