@@ -18,12 +18,6 @@ export class UsersController {
     return this.usersService.findByID(id);
   }
 
-  @Get()
-  findEmail(@Body() body: GetUserDTO): Promise<User> {
-    const { email } = body;
-    return this.usersService.findEmail(email);
-  }
-
   @Post()
   create(@Body() body: CreateUserDTO): Promise<User> { 
     const { name, email, password } = body;
